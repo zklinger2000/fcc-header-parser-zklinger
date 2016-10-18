@@ -20,10 +20,11 @@ app.get('/api/whoami', function(req, res) {
   const ua = req.headers['user-agent'];
   const os = parser.setUA(ua).getOS();
   const lang = req.headers['accept-language'].split(',')[0];
-  console.log(lang);
+  const ipaddress = req.connection.remoteAddress;
+  const ipLength = ipaddress.split(':').length;
 
   res.json({
-    ipaddress: req.connection.remoteAddress,
+    ipaddress: ipaddress.split(':')[ipLength - 1],
     language: lang,
     os: os.name + ' ' + os.version
   });
